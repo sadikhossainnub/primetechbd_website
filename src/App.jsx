@@ -18,14 +18,19 @@ import SolutionsPage from './pages/SolutionsPage';
 import AboutPage from './pages/AboutPage';
 import VisionMissionPage from './pages/VisionMissionPage';
 import OurTeamPage from './pages/OurTeamPage';
+import WhyChooseUs from './components/WhyChooseUs';
+import CTABanner from './components/CTABanner';
 
 const HomePage = () => (
     <>
         <Hero />
         <Stats />
         <Services />
+        <WhyChooseUs />
+        <CTABanner />
         <Portfolio />
         <Testimonials />
+        <CTABanner />
         <Contact />
     </>
 );
