@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { MapPin, Mail, Phone, Send } from 'lucide-react';
 import { db } from '../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
     const [formState, setFormState] = useState('idle');
@@ -22,6 +23,30 @@ const Contact = () => {
                 timestamp: serverTimestamp(),
                 status: 'unread'
             });
+
+            if (import.meta.env.VITE_EMAILJS_SERVICE_ID && import.meta.env.VITE_EMAILJS_SERVICE_ID !== 'your_emailjs_service_id') {
+                await emailjs.send(
+                    import.meta.env.VITE_EMAILJS_SERVICE_ID,
+                    import.meta.env.VITE_EMAILJS_TEMPLATE_ID_ADMIN,
+                    {
+                        from_name: formData.name,
+                        reply_to: formData.email,
+                        message: formData.message,
+                        source: 'Contact Form'
+                    },
+                    import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+                ).catch(err => console.error("Admin EmailJS Error:", err));
+
+                await emailjs.send(
+                    import.meta.env.VITE_EMAILJS_SERVICE_ID,
+                    import.meta.env.VITE_EMAILJS_TEMPLATE_ID_VISITOR,
+                    {
+                        to_name: formData.name,
+                        to_email: formData.email,
+                    },
+                    import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+                ).catch(err => console.error("Visitor EmailJS Error:", err));
+            }
 
             setFormState('sent');
             setFormData({ name: '', email: '', message: '' });

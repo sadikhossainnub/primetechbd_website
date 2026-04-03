@@ -9,6 +9,7 @@ import {
 import { Link } from 'react-router-dom';
 import { db } from '../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import emailjs from '@emailjs/browser';
 
 const services = [
     { id: 'erp', name: 'ERP Solution', icon: Database, color: '#3b82f6' },
@@ -331,10 +332,13 @@ const RequestPage = () => {
         e.preventDefault();
         try {
             // Save to Firebase
+            const serviceNameObj = services.find(s => s.id === selectedService);
+            const serviceName = serviceNameObj ? serviceNameObj.name : selectedService;
+
             await addDoc(collection(db, 'quote_requests'), {
                 ...formData,
                 service: selectedService,
-                serviceName: services.find(s => s.id === selectedService)?.name,
+                serviceName: serviceName,
                 modules: selectedModules.map(id => {
                     const mod = currentModules.find(m => m.id === id);
                     return { id, name: mod?.name, price: mod?.price };
@@ -343,6 +347,30 @@ const RequestPage = () => {
                 timestamp: serverTimestamp(),
                 status: 'new'
             });
+
+            if (import.meta.env.VITE_EMAILJS_SERVICE_ID && import.meta.env.VITE_EMAILJS_SERVICE_ID !== 'your_emailjs_service_id') {
+                await emailjs.send(
+                    import.meta.env.VITE_EMAILJS_SERVICE_ID,
+                    import.meta.env.VITE_EMAILJS_TEMPLATE_ID_ADMIN,
+                    {
+                        from_name: formData.name,
+                        reply_to: formData.email,
+                        message: `New quote request received for ${serviceName}. Budget: ${formData.budget}. Notes: ${formData.notes}`,
+                        source: 'Request Scoping Form'
+                    },
+                    import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+                ).catch(err => console.error("Admin Email JS Error:", err));
+
+                await emailjs.send(
+                    import.meta.env.VITE_EMAILJS_SERVICE_ID,
+                    import.meta.env.VITE_EMAILJS_TEMPLATE_ID_VISITOR,
+                    {
+                        to_name: formData.name,
+                        to_email: formData.email,
+                    },
+                    import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+                ).catch(err => console.error("Visitor Email JS Error:", err));
+            }
 
             setStep(3);
             setTimeout(() => setSubmitted(true), 1500);
