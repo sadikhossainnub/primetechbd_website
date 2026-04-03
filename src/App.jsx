@@ -17,6 +17,7 @@ import ServicesPage from './pages/ServicesPage';
 import SolutionsPage from './pages/SolutionsPage';
 import AboutPage from './pages/AboutPage';
 import VisionMissionPage from './pages/VisionMissionPage';
+import OurTeamPage from './pages/OurTeamPage';
 
 const HomePage = () => (
     <>
@@ -42,6 +43,7 @@ function App() {
                         <Route path="/solutions" element={<SolutionsPage />} />
                         <Route path="/about" element={<AboutPage />} />
                         <Route path="/vision-mission" element={<VisionMissionPage />} />
+                        <Route path="/team" element={<OurTeamPage />} />
                         <Route path="/request" element={<RequestPage />} />
                         <Route path="/project/:id" element={<ProjectDetails />} />
                         <Route path="/admin/login" element={<AdminLogin />} />
