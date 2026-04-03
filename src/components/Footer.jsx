@@ -1,6 +1,6 @@
 import React from 'react';
 import { Facebook, Linkedin, Twitter } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 const Footer = () => {
     const location = useLocation();
@@ -21,7 +21,7 @@ const Footer = () => {
                 <div>
                     <h4 style={{ marginBottom: '1.5rem' }}>Quick Links</h4>
                     <ul style={{ color: 'var(--text-secondary)', display: 'grid', gap: '0.8rem' }}>
-                        <li><a href="#services">Services</a></li>
+                        <li><Link to="/services">Services</Link></li>
                         <li><a href="#solutions">Solutions</a></li>
                         <li><a href="#about">About Us</a></li>
                         <li><a href="#contact">Contact</a></li>

@@ -13,6 +13,7 @@ import RequestPage from './pages/RequestPage';
 import ProjectDetails from './pages/ProjectDetails';
 import AdminLogin from './pages/Admin/Login';
 import AdminDashboard from './pages/Admin/Dashboard';
+import ServicesPage from './pages/ServicesPage';
 
 const HomePage = () => (
     <>
@@ -34,6 +35,7 @@ function App() {
                 <main>
                     <Routes>
                         <Route path="/" element={<HomePage />} />
+                        <Route path="/services" element={<ServicesPage />} />
                         <Route path="/request" element={<RequestPage />} />
                         <Route path="/project/:id" element={<ProjectDetails />} />
                         <Route path="/admin/login" element={<AdminLogin />} />
