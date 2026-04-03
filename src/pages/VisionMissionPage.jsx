@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Eye, Target, Rocket, Compass, Zap } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const VisionMissionPage = () => {
     useEffect(() => {
@@ -23,6 +24,12 @@ const VisionMissionPage = () => {
 
     return (
         <div style={{ paddingTop: '100px', minHeight: '80vh', paddingBottom: '60px' }}>
+            <SEO
+                title="Our Vision & Mission - Building the Future of Enterprise Software"
+                description="Discover the vision and mission of Prime Technology of Bangladesh. We envision a future where businesses thrive through intelligent automation and seamless digital integration."
+                keywords="prime technology vision, software company mission bangladesh, digital transformation vision, enterprise software innovation"
+                path="/vision-mission"
+            />
             <div className="section-header">
                 <span className="badge">Our Purpose</span>
                 <h2>Vision & Mission</h2>
@@ -74,7 +81,7 @@ const VisionMissionPage = () => {
                                 <Eye size={64} style={{ color: 'var(--accent)', marginBottom: '2rem' }} />
                                 <h3 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>Our Vision</h3>
                                 <p style={{ color: 'var(--text-secondary)', lineHeight: '1.9', fontSize: '1.2rem', maxWidth: '800px' }}>
-                                    At Prime Technology Solutions Ltd, our ultimate vision is to be the globally recognized vanguard in enterprise software engineering, bridging the crucial gap between limitless human potential and cutting-edge technological capability. We envision a future where complex administrative, industrial, and social challenges are effortlessly resolved through intuitive, automated, and hyper-scalable digital ecosystems. By consistently anticipating tomorrow’s technological landscapes, our goal is to empower organizations of every size, enabling them to build a smarter, more efficient, and hyper-connected business world that thrives on intelligent automation and seamless digital integration.
+                                    At Prime Technology of Bangladesh, our ultimate vision is to be the globally recognized vanguard in enterprise software engineering, bridging the crucial gap between limitless human potential and cutting-edge technological capability. We envision a future where complex administrative, industrial, and social challenges are effortlessly resolved through intuitive, automated, and hyper-scalable digital ecosystems. By consistently anticipating tomorrow’s technological landscapes, our goal is to empower organizations of every size, enabling them to build a smarter, more efficient, and hyper-connected business world that thrives on intelligent automation and seamless digital integration.
                                 </p>
                             </motion.div>
                         )}
@@ -87,7 +94,7 @@ const VisionMissionPage = () => {
                                 <Target size={64} style={{ color: 'var(--accent)', marginBottom: '2rem' }} />
                                 <h3 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>Our Mission</h3>
                                 <p style={{ color: 'var(--text-secondary)', lineHeight: '1.9', fontSize: '1.2rem', maxWidth: '800px' }}>
-                                    Our mission at Prime Technology is to meticulously architect, deploy, and maintain premium software infrastructures that decisively solve critical industry operations. We are dedicated to delivering bespoke solutions—from comprehensive ERP platforms to intricate healthcare systems—that serve as the backbone for operational excellence. We commit to a relentless pursuit of continuous innovation, adhering to the highest international security standards, and providing unparalleled, round-the-clock client support. By transforming complex data variables into actionable technological assets, we consistently foster digital self-reliance and sustainable growth for modern businesses globally.
+                                    Our mission at Prime Technology of Bangladesh is to meticulously architect, deploy, and maintain premium software infrastructures that decisively solve critical industry operations. We are dedicated to delivering bespoke solutions—from comprehensive ERP platforms to intricate healthcare systems—that serve as the backbone for operational excellence. We commit to a relentless pursuit of continuous innovation, adhering to the highest international security standards, and providing unparalleled, round-the-clock client support. By transforming complex data variables into actionable technological assets, we consistently foster digital self-reliance and sustainable growth for modern businesses globally.
                                 </p>
                             </motion.div>
                         )}

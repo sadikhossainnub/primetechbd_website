@@ -20,7 +20,7 @@ const Header = () => {
         <header className={isScrolled ? 'scrolled' : ''}>
             <nav>
                 <Link to="/" className="logo">
-                    <img src="/assets/logo.jpg" alt="Prime Tech Logo" style={{ height: '45px', borderRadius: '8px' }} />
+                    <img src="/assets/logo.jpg" alt="Prime Technology of Bangladesh Logo" style={{ height: '45px', borderRadius: '8px' }} />
                     <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1.1' }}>
                         <span style={{ fontSize: '1.2rem', color: 'white' }}>PRIME</span>
                         <span style={{ fontSize: '0.9rem', color: 'var(--accent)' }}>TECHNOLOGY</span>

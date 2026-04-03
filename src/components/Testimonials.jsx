@@ -6,7 +6,7 @@ const testimonials = [
     {
         name: 'Ahmed Zubayer',
         role: 'CEO, RetailFlow BD',
-        text: 'Prime Technology transformed our manual tracking into a seamless automated ecosystem. Their attention to detail in UX is remarkable. Within 3 months of deployment, our operational efficiency increased by 45%. Their post-delivery support is outstanding.',
+        text: 'Prime Technology of Bangladesh transformed our manual tracking into a seamless automated ecosystem. Their attention to detail in UX is remarkable. Within 3 months of deployment, our operational efficiency increased by 45%. Their post-delivery support is outstanding.',
         avatar: 'AZ',
         rating: 5,
         project: 'ERP Solution'
@@ -22,7 +22,7 @@ const testimonials = [
     {
         name: 'Karim Ullah',
         role: 'Founder, TravelSync',
-        text: 'From concept to deployment, the team at Prime Tech was professional and highly skilled. They delivered a complex booking engine with real-time availability sync across 50+ hotels. Highly recommended for complex, mission-critical projects.',
+        text: 'From concept to deployment, the team at Prime Technology of Bangladesh was professional and highly skilled. They delivered a complex booking engine with real-time availability sync across 50+ hotels. Highly recommended for complex, mission-critical projects.',
         avatar: 'KU',
         rating: 5,
         project: 'E-Commerce Platform'
@@ -38,7 +38,7 @@ const testimonials = [
     {
         name: 'Rafiq Hasan',
         role: 'Owner, FreshMart Chain',
-        text: 'Our 12 retail outlets were impossible to manage manually. Prime Tech\'s POS system with centralized inventory changed everything. Real-time stock tracking, automated reordering, and beautiful analytics dashboards — it\'s like having a digital brain for our business.',
+        text: 'Our 12 retail outlets were impossible to manage manually. Prime Technology of Bangladesh\'s POS system with centralized inventory changed everything. Real-time stock tracking, automated reordering, and beautiful analytics dashboards — it\'s like having a digital brain for our business.',
         avatar: 'RH',
         rating: 4,
         project: 'POS Solution'
@@ -46,7 +46,7 @@ const testimonials = [
     {
         name: 'Nusrat Jahan',
         role: 'MD, PropertyHub BD',
-        text: 'Managing 200+ rental units was chaos before Prime Tech stepped in. Their Property Management system automated rent collection, maintenance tickets, and tenant communication. Our revenue leakage dropped to near zero. Absolute game-changer.',
+        text: 'Managing 200+ rental units was chaos before Prime Technology of Bangladesh stepped in. Their Property Management system automated rent collection, maintenance tickets, and tenant communication. Our revenue leakage dropped to near zero. Absolute game-changer.',
         avatar: 'NJ',
         rating: 5,
         project: 'Property Management'

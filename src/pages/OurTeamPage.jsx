@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { User, Linkedin, Twitter, Github, Code, Briefcase, Palette } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const teamMembers = [
     {
         id: 1,
-        name: 'Sadik Hossain',
+        name: 'Md. Abu Sayed',
         role: 'Chief Executive Officer',
         icon: Briefcase,
         socials: { linkedin: '#', twitter: '#' }
@@ -53,6 +54,12 @@ const OurTeamPage = () => {
 
     return (
         <div style={{ paddingTop: '100px', minHeight: '80vh', paddingBottom: '60px' }}>
+            <SEO
+                title="Our Team - Expert Software Engineers & Architects"
+                description="Meet the visionary engineers, architects, and designers at Prime Technology of Bangladesh. Our expert team drives innovation in ERP, POS, Healthcare, and custom software development."
+                keywords="prime technology team, software engineers bangladesh, IT experts dhaka, development team, software architects"
+                path="/team"
+            />
             <div className="section-header">
                 <span className="badge">The Masterminds</span>
                 <h2>Our Team</h2>

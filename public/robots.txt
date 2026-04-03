@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
 
-Sitemap: https://primetechbd.com/sitemap.xml
+Sitemap: https://primetechbd.xyz/sitemap.xml

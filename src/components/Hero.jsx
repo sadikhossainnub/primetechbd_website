@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import TechBackground from './TechBackground';
 
 const words = ["Scalable", "Intelligent", "Innovative", "Reliable"];
 
@@ -16,6 +17,7 @@ const Hero = () => {
 
     return (
         <section className="hero" id="home">
+            <TechBackground />
             <motion.div
                 className="hero-content"
                 initial={{ opacity: 0, x: -50 }}
@@ -50,7 +52,7 @@ const Hero = () => {
                     <br />
                     <span>Software in Bangladesh</span>
                 </h1>
-                <p>Prime Tech Solutions Ltd. empowers global enterprises with high-performance software engineering and strategic digital transformation.</p>
+                <p>Prime Technology of Bangladesh empowers global enterprises with high-performance software engineering and strategic digital transformation.</p>
                 <div className="hero-btns">
                     <Link to="/request">
                         <motion.button

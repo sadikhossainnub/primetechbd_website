@@ -30,7 +30,7 @@ const WhyChooseUs = () => {
     return (
         <section style={{ background: 'transparent' }}>
             <div className="section-header">
-                <span className="badge">Why Prime Tech</span>
+                <span className="badge">Why Prime Technology of Bangladesh</span>
                 <h2>Why Businesses Choose Us</h2>
                 <p>We don't just write code. We engineer competitive advantages.</p>
             </div>

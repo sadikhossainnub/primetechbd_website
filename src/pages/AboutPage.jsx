@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Target, Users, Award, Zap } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const AboutPage = () => {
     useEffect(() => {
@@ -16,9 +17,15 @@ const AboutPage = () => {
 
     return (
         <div style={{ paddingTop: '100px', minHeight: '80vh', paddingBottom: '60px' }}>
+            <SEO
+                title="About Us - Leading Software Company in Bangladesh Since 2007"
+                description="Learn about Prime Technology of Bangladesh, the leading enterprise software company in Dhaka. 15+ years of experience, 200+ projects delivered, 50+ happy clients. ERP, POS, Hospital & School Management experts."
+                keywords="about prime technology bangladesh, software company dhaka, IT company bangladesh, enterprise software company, best software company mirpur dhaka"
+                path="/about"
+            />
             <div className="section-header">
                 <span className="badge">Our Story</span>
-                <h2>About Prime Technology</h2>
+                <h2>About Prime Technology of Bangladesh</h2>
                 <p>Empowering businesses through innovative software engineering since 2007.</p>
             </div>
             
@@ -31,7 +38,7 @@ const AboutPage = () => {
                 >
                     <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>Who We Are</h3>
                     <p style={{ color: 'var(--text-secondary)', lineHeight: '1.8', fontSize: '1.1rem', marginBottom: '1.5rem' }}>
-                        Prime Technology Solutions Ltd is the leading enterprise software company in Bangladesh. We specialize in architecting high-performance digital solutions, ranging from sophisticated ERP implementations and Point of Sale (POS) systems to custom-tailored healthcare and property management platforms.
+                        Prime Technology of Bangladesh is the leading enterprise software company in Bangladesh. We specialize in architecting high-performance digital solutions, ranging from sophisticated ERP implementations and Point of Sale (POS) systems to custom-tailored healthcare and property management platforms.
                     </p>
                     <p style={{ color: 'var(--text-secondary)', lineHeight: '1.8', fontSize: '1.1rem' }}>
                         Our core philosophy revolves around delivering premium, scalable, and secure applications. By leveraging a modern tech stack and deep industry expertise, we ensure that every project we deliver acts as a fundamental catalyst for our clients' long-term business growth.

@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { db } from '../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import emailjs from '@emailjs/browser';
+import SEO from '../components/SEO';
 
 const services = [
     { id: 'erp', name: 'ERP Solution', icon: Database, color: '#3b82f6' },
@@ -382,6 +383,12 @@ const RequestPage = () => {
 
     return (
         <div className="request-page" style={{ minHeight: '100vh', padding: '120px 8% 60px' }}>
+            <SEO
+                title="Request Software Quote - Free Consultation & Project Scoping"
+                description="Get a free consultation and detailed project scoping for your ERP, POS, Hospital Management, or Custom Software project. Request a quote from Prime Technology of Bangladesh today."
+                keywords="software quote bangladesh, ERP quotation dhaka, free consultation software company, project scoping, custom software pricing bangladesh"
+                path="/request"
+            />
             <Link to="/" className="btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '2rem' }}>
                 <ArrowLeft size={18} /> Back to Home
             </Link>
