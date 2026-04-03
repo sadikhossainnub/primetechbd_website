@@ -23,7 +23,8 @@ const Footer = () => {
                     <ul style={{ color: 'var(--text-secondary)', display: 'grid', gap: '0.8rem' }}>
                         <li><Link to="/services">Services</Link></li>
                         <li><Link to="/solutions">Solutions</Link></li>
-                        <li><a href="#about">About Us</a></li>
+                        <li><Link to="/about">About Us</Link></li>
+                        <li><Link to="/vision-mission">Vision & Mission</Link></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
