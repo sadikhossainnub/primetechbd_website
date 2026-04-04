@@ -139,6 +139,7 @@ const Footer = () => {
                                 { to: '/about', label: 'About Us' },
                                 { to: '/vision-mission', label: 'Vision & Mission' },
                                 { to: '/team', label: 'Our Team' },
+                                { to: '/blog', label: 'Blog' },
                                 { to: '/request', label: 'Request Quote' }
                             ].map((link, i) => (
                                 <li key={i}>
