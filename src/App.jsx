@@ -20,6 +20,7 @@ import VisionMissionPage from './pages/VisionMissionPage';
 import OurTeamPage from './pages/OurTeamPage';
 import BlogPage from './pages/BlogPage';
 import BlogPostDetails from './pages/BlogPostDetails';
+import BlogSubmissionPage from './pages/BlogSubmissionPage';
 import WhyChooseUs from './components/WhyChooseUs';
 import CTABanner from './components/CTABanner';
 import ClientCarousel from './components/ClientCarousel';
@@ -66,6 +67,7 @@ function App() {
                         <Route path="/team" element={<OurTeamPage />} />
                         <Route path="/blog" element={<BlogPage />} />
                         <Route path="/blog/:id" element={<BlogPostDetails />} />
+                        <Route path="/submit-blog" element={<BlogSubmissionPage />} />
                         <Route path="/request" element={<RequestPage />} />
                         <Route path="/project/:id" element={<ProjectDetails />} />
                         <Route path="/admin/login" element={<AdminLogin />} />
