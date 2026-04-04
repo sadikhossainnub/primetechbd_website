@@ -18,6 +18,8 @@ import SolutionsPage from './pages/SolutionsPage';
 import AboutPage from './pages/AboutPage';
 import VisionMissionPage from './pages/VisionMissionPage';
 import OurTeamPage from './pages/OurTeamPage';
+import BlogPage from './pages/BlogPage';
+import BlogPostDetails from './pages/BlogPostDetails';
 import WhyChooseUs from './components/WhyChooseUs';
 import CTABanner from './components/CTABanner';
 import ClientCarousel from './components/ClientCarousel';
@@ -62,6 +64,8 @@ function App() {
                         <Route path="/about" element={<AboutPage />} />
                         <Route path="/vision-mission" element={<VisionMissionPage />} />
                         <Route path="/team" element={<OurTeamPage />} />
+                        <Route path="/blog" element={<BlogPage />} />
+                        <Route path="/blog/:id" element={<BlogPostDetails />} />
                         <Route path="/request" element={<RequestPage />} />
                         <Route path="/project/:id" element={<ProjectDetails />} />
                         <Route path="/admin/login" element={<AdminLogin />} />
