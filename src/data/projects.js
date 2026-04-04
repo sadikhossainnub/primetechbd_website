@@ -46,5 +46,37 @@ export const projects = [
         img: '/assets/project_skytrack.png',
         client: 'SkyHigh Travels',
         year: '2024'
+    },
+    {
+        id: 'perp-system',
+        title: 'PERP (Prime ERP)',
+        category: 'Enterprise Resource Planning',
+        desc: 'A comprehensive, scalable ERP solution tailored for modern enterprises.',
+        longDesc: 'PERP is our flagship enterprise resource planning system. It centralizes finance, supply chain, HR, and manufacturing processes into a single source of truth, enabling businesses to scale efficiently and make data-driven decisions.',
+        features: [
+            'Financial Accounting & Reporting',
+            'Supply Chain Management',
+            'Human Resource Integration',
+            'Real-time Analytics Dashboard'
+        ],
+        img: '/assets/project_perp.png',
+        client: 'Various Enterprises',
+        year: '2025'
+    },
+    {
+        id: 'ppos-system',
+        title: 'PPOS (Prime POS)',
+        category: 'Point of Sale',
+        desc: 'Advanced digital Point of Sale system for retail and hospitality.',
+        longDesc: 'PPOS empowers retail and hospitality businesses with lightning-fast checkout, real-time inventory synchronization, and comprehensive sales analytics. Built for reliability, it works seamlessly offline and syncs when reconnected.',
+        features: [
+            'Offline Capable Operations',
+            'Multi-store Inventory Sync',
+            'Loyalty Program Management',
+            'Integrated Payment Processing'
+        ],
+        img: '/assets/project_ppos.png',
+        client: 'Retail Chains',
+        year: '2025'
     }
 ];
