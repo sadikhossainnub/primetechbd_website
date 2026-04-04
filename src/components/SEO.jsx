@@ -5,7 +5,7 @@ const SEO = ({ title, description, keywords, path = '' }) => {
     const siteUrl = 'https://primetechbd.xyz';
     const siteName = 'Prime Technology of Bangladesh';
     const fullTitle = title ? `${title} | ${siteName}` : `${siteName} | Best ERP Software Company in Bangladesh`;
-    const fullUrl = `${siteUrl}/#${path}`;
+    const fullUrl = `${siteUrl}${path}`;
     const defaultDescription = 'Prime Technology of Bangladesh is the leading ERP, POS, Hospital Management & Custom Software Company in Bangladesh. Trusted by 200+ enterprises.';
     const defaultKeywords = 'ERP Software Bangladesh, Software Company Bangladesh, ERPNext, Odoo, POS System, Hospital Management, Prime Technology of Bangladesh';
 
