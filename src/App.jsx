@@ -20,16 +20,28 @@ import VisionMissionPage from './pages/VisionMissionPage';
 import OurTeamPage from './pages/OurTeamPage';
 import WhyChooseUs from './components/WhyChooseUs';
 import CTABanner from './components/CTABanner';
+import ClientCarousel from './components/ClientCarousel';
+import FAQ from './components/FAQ';
+import FloatingContact from './components/FloatingContact';
+import SEO from './components/SEO';
 
 const HomePage = () => (
     <>
+        <SEO 
+            title="Best ERP Software Company in Bangladesh | #1 ERPNext & Odoo Experts"
+            description="Leading ERP, POS, Hospital & School Management Software Company in Bangladesh. Expert solutions for enterprise resource planning (ERPNext, Odoo, SAP) across Dhaka and Mirpur."
+            keywords="ERP Software in Bangladesh, Best ERP software company Dhaka, ERPNext expertise Bangladesh, SAP systems Dhaka, Odoo development Bangladesh, Prime Technology of Bangladesh, software company Bangladesh, ERP solutions for manufacturing, Hospital & School Management Software Bangladesh"
+            path="/"
+        />
         <Hero />
+        <ClientCarousel />
         <Stats />
         <Services />
         <WhyChooseUs />
         <CTABanner />
         <Portfolio />
         <Testimonials />
+        <FAQ />
         <CTABanner />
         <Contact />
     </>
@@ -41,6 +53,7 @@ function App() {
             <div className="App">
                 <MouseGlow />
                 <Header />
+                <FloatingContact />
                 <main>
                     <Routes>
                         <Route path="/" element={<HomePage />} />

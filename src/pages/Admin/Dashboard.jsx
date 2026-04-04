@@ -6,33 +6,64 @@ import {
     Filter, MoreVertical, ExternalLink
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { auth, db } from '../../firebase';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { collection, query, orderBy, limit, onSnapshot } from 'firebase/firestore';
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('overview');
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [quoteRequests, setQuoteRequests] = useState([]);
 
     useEffect(() => {
-        const auth = localStorage.getItem('isAdminAuthenticated');
-        if (!auth) navigate('/admin/login');
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            if (!currentUser) {
+                navigate('/admin/login');
+            } else {
+                setUser(currentUser);
+            }
+            setLoading(false);
+        });
+
+        return () => unsubscribe();
     }, [navigate]);
 
-    const handleLogout = () => {
-        localStorage.removeItem('isAdminAuthenticated');
-        navigate('/admin/login');
+    // Real-time listener for Quote Requests
+    useEffect(() => {
+        if (!user) return;
+
+        const q = query(collection(db, "quoteRequests"), orderBy("createdAt", "desc"), limit(10));
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+            const requests = [];
+            querySnapshot.forEach((doc) => {
+                requests.push({ id: doc.id, ...doc.data() });
+            });
+            setQuoteRequests(requests);
+        }, (error) => {
+            console.error("Error fetching quotes:", error);
+        });
+
+        return () => unsubscribe();
+    }, [user]);
+
+    const handleLogout = async () => {
+        try {
+            await signOut(auth);
+            navigate('/admin/login');
+        } catch (err) {
+            console.error("Logout error:", err);
+        }
     };
 
-    const stats = [
-        { label: 'Total Leads', value: '124', icon: MessageSquare, change: '+12%', color: '#3b82f6' },
-        { label: 'Active Projects', value: '18', icon: Briefcase, change: '+2', color: '#10b981' },
-        { label: 'Est. Revenue', value: '4.2M', icon: TrendingUp, change: '+18%', color: '#f59e0b' },
-        { label: 'Pending Quotes', value: '09', icon: Clock, change: '-3%', color: '#8b5cf6' },
-    ];
+    if (loading) return <div style={{ background: '#05060a', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent)' }}>Authenticating...</div>;
 
-    const mockLeads = [
-        { id: 1, name: 'Tanvir Ahmed', company: 'Dhaka Textiles Ltd', service: 'ERP Solution', budget: '10L - 15L', date: '2 hours ago', status: 'New' },
-        { id: 2, name: 'Sarah Islam', company: 'EduVenture', service: 'School Management', budget: '2L - 5L', date: '5 hours ago', status: 'Contacted' },
-        { id: 3, name: 'Rafiqul Karim', company: 'Modern Hospital', service: 'Hospital Management', budget: '20L+', date: 'Yesterday', status: 'Pending' },
-        { id: 4, name: 'Mahrin Sultana', company: 'SkyLine Real Estate', service: 'Property Management', budget: '5L - 8L', date: '2 days ago', status: 'Qualified' },
+    const stats = [
+        { label: 'Total Inquiries', value: quoteRequests.length.toString(), icon: MessageSquare, change: 'Live', color: '#3b82f6' },
+        { label: 'Active Projects', value: '5', icon: Briefcase, change: '+2', color: '#10b981' },
+        { label: 'Cloud Status', value: 'Connected', icon: TrendingUp, change: 'Sync', color: '#f59e0b' },
+        { label: 'Admin Session', value: 'Active', icon: Clock, change: 'Encrypted', color: '#8b5cf6' },
     ];
 
     return (
@@ -88,6 +119,11 @@ const AdminDashboard = () => {
                     </ul>
                 </nav>
 
+                <div style={{ padding: '1rem', background: 'rgba(255,255,255,0.03)', borderRadius: '12px', marginBottom: '1rem' }}>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '4px' }}>Logged in as:</p>
+                    <p style={{ fontSize: '0.85rem', color: 'white', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user?.email}</p>
+                </div>
+
                 <button
                     onClick={handleLogout}
                     style={{
@@ -99,8 +135,7 @@ const AdminDashboard = () => {
                         background: 'transparent',
                         border: 'none',
                         cursor: 'pointer',
-                        fontWeight: '600',
-                        marginTop: 'auto'
+                        fontWeight: '600'
                     }}
                 >
                     <LogOut size={20} />
@@ -117,18 +152,7 @@ const AdminDashboard = () => {
                         <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem' }}>
                             {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
                         </h1>
-                        <p style={{ color: 'var(--text-secondary)' }}>Welcome back to the Command Center.</p>
-                    </div>
-                    <div style={{ display: 'flex', gap: '1.5rem' }}>
-                        <div style={{ position: 'relative' }}>
-                            <Search size={18} style={{ position: 'absolute', left: '15px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }} />
-                            <input
-                                type="text"
-                                placeholder="Search leads..."
-                                style={{ padding: '0.8rem 1rem 0.8rem 3rem', background: 'var(--bg-surface)', border: '1px solid var(--glass-border)', borderRadius: '10px', color: 'white', width: '250px' }}
-                            />
-                        </div>
-                        <div style={{ width: '45px', height: '45px', borderRadius: '50%', background: 'var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--bg-dark)', fontWeight: '800' }}>AD</div>
+                        <p style={{ color: 'var(--text-secondary)' }}>Welcome back, Authorized {user?.email?.split('@')[0]}</p>
                     </div>
                 </header>
 
@@ -142,8 +166,8 @@ const AdminDashboard = () => {
                                         <div style={{ color: stat.color, background: `${stat.color}15`, padding: '12px', borderRadius: '15px' }}>
                                             <stat.icon size={26} />
                                         </div>
-                                        <span style={{ color: stat.change.startsWith('+') ? '#10b981' : '#ef4444', fontSize: '0.9rem', fontWeight: '700' }}>
-                                            {stat.change} <ArrowUpRight size={14} style={{ display: 'inline' }} />
+                                        <span style={{ color: '#10b981', fontSize: '0.8rem', fontWeight: '700' }}>
+                                            {stat.change}
                                         </span>
                                     </div>
                                     <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '0.5rem' }}>{stat.label}</p>
@@ -156,9 +180,9 @@ const AdminDashboard = () => {
                         <div style={{ background: 'var(--bg-surface)', borderRadius: '24px', border: '1px solid var(--glass-border)', padding: '2.5rem' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                                 <h3 style={{ fontSize: '1.4rem' }}>Recent Quote Requests</h3>
-                                <button style={{ padding: '0.6rem 1.2rem', background: 'var(--glass)', border: '1px solid var(--glass-border)', borderRadius: '8px', color: 'white', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-                                    <Filter size={16} /> Filter
-                                </button>
+                                <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+                                    Showing last {quoteRequests.length} inquiries
+                                </div>
                             </div>
 
                             <div style={{ overflowX: 'auto' }}>
@@ -167,34 +191,29 @@ const AdminDashboard = () => {
                                         <tr style={{ borderBottom: '1px solid var(--glass-border)', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
                                             <th style={{ padding: '1rem' }}>CONTACT</th>
                                             <th style={{ padding: '1rem' }}>BUSINESS/SERVICE</th>
-                                            <th style={{ padding: '1rem' }}>EST. BUDGET</th>
-                                            <th style={{ padding: '1rem' }}>STATUS</th>
+                                            <th style={{ padding: '1rem' }}>MESSAGE</th>
+                                            <th style={{ padding: '1rem' }}>DATE</th>
                                             <th style={{ padding: '1rem' }}>ACTION</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {mockLeads.map((lead) => (
-                                            <tr key={lead.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.03)', fontSize: '0.95rem' }}>
+                                        {quoteRequests.map((req) => (
+                                            <tr key={req.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.03)', fontSize: '0.95rem' }}>
                                                 <td style={{ padding: '1.5rem 1rem' }}>
-                                                    <div style={{ fontWeight: '600' }}>{lead.name}</div>
-                                                    <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>{lead.company}</div>
+                                                    <div style={{ fontWeight: '600' }}>{req.name}</div>
+                                                    <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>{req.email}</div>
                                                 </td>
                                                 <td style={{ padding: '1.5rem 1rem' }}>
-                                                    <div style={{ color: 'var(--accent)' }}>{lead.service}</div>
-                                                    <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>{lead.date}</div>
+                                                    <div style={{ color: 'var(--accent)' }}>{req.serviceType || 'Custom Software'}</div>
+                                                    <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>{req.companyName}</div>
                                                 </td>
-                                                <td style={{ padding: '1.5rem 1rem', fontWeight: '700' }}>{lead.budget} TK</td>
                                                 <td style={{ padding: '1.5rem 1rem' }}>
-                                                    <span style={{
-                                                        padding: '4px 12px',
-                                                        borderRadius: '50px',
-                                                        fontSize: '0.8rem',
-                                                        background: lead.status === 'New' ? '#3b82f620' : '#10b98120',
-                                                        color: lead.status === 'New' ? '#3b82f6' : '#10b981',
-                                                        border: `1px solid ${lead.status === 'New' ? '#3b82f630' : '#10b98130'}`
-                                                    }}>
-                                                        {lead.status}
-                                                    </span>
+                                                    <div style={{ maxWidth: '250px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                                        {req.projectDetails || req.message}
+                                                    </div>
+                                                </td>
+                                                <td style={{ padding: '1.5rem 1rem' }}>
+                                                    {req.createdAt?.toDate ? req.createdAt.toDate().toLocaleDateString() : 'Just now'}
                                                 </td>
                                                 <td style={{ padding: '1.5rem 1rem' }}>
                                                     <button style={{ background: 'transparent', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer' }}>
@@ -203,17 +222,18 @@ const AdminDashboard = () => {
                                                 </td>
                                             </tr>
                                         ))}
+                                        {quoteRequests.length === 0 && (
+                                            <tr>
+                                                <td colSpan="5" style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-secondary)' }}>
+                                                    No inquiries found yet. Connect your "Request Quote" form to Firestore to see data here.
+                                                </td>
+                                            </tr>
+                                        )}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </motion.div>
-                )}
-
-                {activeTab !== 'overview' && (
-                    <div style={{ textAlign: 'center', padding: '100px' }}>
-                        <h3 style={{ color: 'var(--text-secondary)' }}>{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Management Coming Soon</h3>
-                    </div>
                 )}
             </main>
         </div>

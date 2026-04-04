@@ -1,21 +1,29 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Lock, User, ShieldCheck } from 'lucide-react';
+import { Lock, Mail, ShieldCheck } from 'lucide-react';
+import { auth } from '../../firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const AdminLogin = () => {
-    const [credentials, setCredentials] = useState({ username: '', password: '' });
+    const [credentials, setCredentials] = useState({ email: '', password: '' });
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        // Simple mock authentication
-        if (credentials.username === 'admin' && credentials.password === 'prime123') {
-            localStorage.setItem('isAdminAuthenticated', 'true');
+        setError('');
+        setLoading(true);
+
+        try {
+            await signInWithEmailAndPassword(auth, credentials.email, credentials.password);
             navigate('/admin/dashboard');
-        } else {
-            setError('Invalid credentials. Please try again.');
+        } catch (err) {
+            console.error("Login error:", err);
+            setError('Account verification failed. Please check credentials.');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -63,14 +71,14 @@ const AdminLogin = () => {
 
                 <form onSubmit={handleLogin}>
                     <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ color: 'var(--text-secondary)', display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Username</label>
+                        <label style={{ color: 'var(--text-secondary)', display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Admin Email</label>
                         <div style={{ position: 'relative' }}>
-                            <User size={18} style={{ position: 'absolute', left: '15px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }} />
+                            <Mail size={18} style={{ position: 'absolute', left: '15px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }} />
                             <input
-                                type="text"
-                                placeholder="Admin ID"
-                                value={credentials.username}
-                                onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
+                                type="email"
+                                placeholder="admin@primetechbd.xyz"
+                                value={credentials.email}
+                                onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
                                 style={{
                                     width: '100%',
                                     padding: '1rem 1rem 1rem 3rem',
@@ -109,13 +117,14 @@ const AdminLogin = () => {
                     {error && <p style={{ color: '#ef4444', fontSize: '0.85rem', marginBottom: '1.5rem', textAlign: 'center' }}>{error}</p>}
 
                     <motion.button
+                        disabled={loading}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         type="submit"
                         className="btn-primary"
-                        style={{ width: '100%', border: 'none', cursor: 'pointer', padding: '1.2rem' }}
+                        style={{ width: '100%', border: 'none', cursor: loading ? 'not-allowed' : 'pointer', padding: '1.2rem', opacity: loading ? 0.7 : 1 }}
                     >
-                        Authorize & Enter
+                        {loading ? 'Verifying...' : 'Authorize & Enter'}
                     </motion.button>
                 </form>
             </motion.div>

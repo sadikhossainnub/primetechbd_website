@@ -18,10 +18,14 @@ const Contact = () => {
         setFormState('sending');
 
         try {
-            await addDoc(collection(db, 'contact_messages'), {
-                ...formData,
-                timestamp: serverTimestamp(),
-                status: 'unread'
+            await addDoc(collection(db, 'quoteRequests'), {
+                name: formData.name,
+                email: formData.email,
+                message: formData.message,
+                serviceType: 'General Inquiry',
+                companyName: 'Individual/Direct',
+                createdAt: serverTimestamp(),
+                status: 'New'
             });
 
             if (import.meta.env.VITE_EMAILJS_SERVICE_ID && import.meta.env.VITE_EMAILJS_SERVICE_ID !== 'your_emailjs_service_id') {

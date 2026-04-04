@@ -336,7 +336,7 @@ const RequestPage = () => {
             const serviceNameObj = services.find(s => s.id === selectedService);
             const serviceName = serviceNameObj ? serviceNameObj.name : selectedService;
 
-            await addDoc(collection(db, 'quote_requests'), {
+            await addDoc(collection(db, 'quoteRequests'), {
                 ...formData,
                 service: selectedService,
                 serviceName: serviceName,
@@ -345,8 +345,8 @@ const RequestPage = () => {
                     return { id, name: mod?.name, price: mod?.price };
                 }),
                 totalPrice,
-                timestamp: serverTimestamp(),
-                status: 'new'
+                createdAt: serverTimestamp(),
+                status: 'New'
             });
 
             if (import.meta.env.VITE_EMAILJS_SERVICE_ID && import.meta.env.VITE_EMAILJS_SERVICE_ID !== 'your_emailjs_service_id') {
